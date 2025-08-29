@@ -1,0 +1,56 @@
+name: Release (BigWigs Packager)
+
+on:
+  push:
+    tags:
+      - 'v*'          # 仅当推送以 v 开头的标签时触发，如 v0.1.0
+  workflow_dispatch:   # 允许手动触发
+
+permissions:
+  contents: write      # 允许创建/更新 GitHub Release
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout (with tags)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # 必须为 0，Packager 需要完整的 tag/历史
+
+      # 可选：保证子模块完整（通常不需要）
+      # - name: Update submodules
+      #   run: git submodule update --init --recursive
+
+      - name: Package and upload via BigWigs Packager
+        uses: BigWigsMods/packager@v2
+        env:
+          # 必填：CurseForge API Token（在仓库 Settings → Secrets and variables → Actions 添加）
+          CF_API_KEY: ${{ secrets.CF_API_TOKEN }}
+
+          # 选填：创建 GitHub Release（用内置 token 即可）
+          GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
+
+          # 如需同步到 WoWInterface / Wago，可再添加以下机密并解除注释
+          # WOWI_API_TOKEN: ${{ secrets.WOWI_API_TOKEN }}
+          # WAGO_API_TOKEN: ${{ secrets.WAGO_API_TOKEN }}
+
+        # 常用参数说明：
+        # - 项目元数据由 .pkgmeta 与 toc 决定；@project-version@ 将被 tag 值替换
+        # - 默认会根据 tag 创建 GitHub Release，并上传打包产物与 changelog
+        # - 如需限制游戏分支，可在 args 添加 -g retail 或 -g classic
+        with:
+          args: >
+            -m .pkgmeta
+            --no-nolib
+
+      # 可选：把打包产物保存为构建工件，便于在 Actions 页面下载
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: lessclick-release-artifacts
+          path: |
+            .release/*.zip
+            .release/*.txt
+          if-no-files-found: ignore

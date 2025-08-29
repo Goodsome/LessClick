@@ -1,0 +1,38 @@
+package-as: LessClick
+
+# 只要你没有嵌入库，就不要生成 nolib 包
+enable-nolib-creation: no
+
+# 如果你维护 CHANGELOG.md，打包时会作为变更日志上传
+# 若暂时没有，可先删除下面两行，或创建一个简短的 CHANGELOG.md
+manual-changelog: true
+changelog: CHANGELOG.md
+
+# 打包时忽略的文件/目录（避免把开发与仓库文件带进发布包）
+ignore:
+  - .git
+  - .github
+  - .gitignore
+  - .gitattributes
+  - .editorconfig
+  - .idea
+  - .vscode
+  - tools
+  - stubs
+  - *.iml
+  - tests
+  - docs
+  - screenshots/raw
+
+# 如需引用外部库（例如 Ace3），在此声明，会在打包时检出到指定路径
+# externals:
+#   libs/LibStub:
+#     url: https://repos.wowace.com/wow/libstub/trunk
+#   libs/CallbackHandler-1.0:
+#     url: https://repos.wowace.com/wow/callbackhandler/trunk/CallbackHandler-1.0
+#   libs/Ace3:
+#     url: https://repos.wowace.com/wow/ace3/trunk
+
+# 如需在打包时重命名/搬移文件夹，可使用 move-folders（当前不需要）
+# move-folders:
+#   LessClick: .
