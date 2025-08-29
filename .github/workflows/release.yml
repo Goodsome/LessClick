@@ -42,8 +42,7 @@ jobs:
         # - 如需限制游戏分支，可在 args 添加 -g retail 或 -g classic
         with:
           args: >
-            -m .pkgmeta
-            --no-nolib
+            -m .pkgmeta -g retail
 
       # 可选：把打包产物保存为构建工件，便于在 Actions 页面下载
       - name: Upload build artifacts

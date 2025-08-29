@@ -7,6 +7,7 @@
 ## X-Category: Interface Enhancements
 ## X-Website: https://www.curseforge.com/wow/addons/less-click
 ## X-License: MIT
+## X-Curse-Project-ID: 1337145
 
 # 本地化（先加载）
 locale/enUS.lua
