@@ -1,0 +1,10 @@
+<!-- LessClick/src/UI/Example.xml -->
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <Frame name="LessClickExampleFrame" hidden="true">
+        <Scripts>
+            <OnLoad>
+                print("Less Click XML loaded")
+            </OnLoad>
+        </Scripts>
+    </Frame>
+</Ui>

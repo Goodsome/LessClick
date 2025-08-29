@@ -1,0 +1,22 @@
+## Interface: 110200
+## Title: Less Click
+## Notes: Reduce clicks with handy QoL features.
+## Author: xlx
+## Version: @project-version@
+## SavedVariables: LessClickDB
+## X-Category: Interface Enhancements
+## X-Website: https://www.curseforge.com/wow/addons/less-click
+## X-License: MIT
+
+# 本地化（先加载）
+locale/enUS.lua
+locale/zhCN.lua
+
+# 资源（按需）
+# media/icon.tga
+
+# 源码
+src/UI/Example.xml
+src/Core.lua
+src/Options.lua
+src/Modules/Example.lua
