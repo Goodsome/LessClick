@@ -21,3 +21,5 @@ src/UI/Example.xml
 src/Core.lua
 src/Options.lua
 src/Modules/Example.lua
+src/Modules/AuctionSearch.lua
+src/Modules/EquipCheck.lua
