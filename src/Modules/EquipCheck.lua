@@ -43,6 +43,18 @@ local ENCHANTABLE_SLOTS = {
     SecondaryHandSlot = true,
 }
 
+local RECOMMEND_ENCHANTMENT_FOR_SLOTS = {
+    BackSlot = "附魔披风 - 吸血尖牙之诵",
+    ChestSlot = "附魔胸甲 - 晶脉辉煌",
+    WristSlot = "附魔护腕 - 装甲闪避低语",
+    LegsSlot = "雷缚护甲片",
+    FeetSlot = "附魔靴子 - 斥候进击",
+    Finger0Slot = "附魔戒指 - 绚灿精通",
+    Finger1Slot = "附魔戒指 - 绚灿精通",
+    MainHandSlot = "附魔武器 - 圣誓之韧",
+    SecondaryHandSlot = "附魔武器 - 圣誓之韧",
+}
+
 -- 扫描的槽位顺序
 local SLOT_ORDER = {
     "HeadSlot","NeckSlot","ShoulderSlot","BackSlot","ChestSlot","ShirtSlot","TabardSlot",
@@ -193,6 +205,29 @@ function EquipCheck.GetMissingList(unit)
         end
     end
     return missing
+end
+
+-- 新增：根据缺失附魔生成购物清单（按推荐表聚合数量）
+function EquipCheck.BuildEnchantShoppingList(unit)
+    unit = unit or "player"
+    local list = {}
+    local missing = EquipCheck.GetMissingList and EquipCheck.GetMissingList(unit) or {}
+    local counts = {}
+
+    for _, e in ipairs(missing) do
+        if e.missingEnchant then
+            local rec = RECOMMEND_ENCHANTMENT_FOR_SLOTS and RECOMMEND_ENCHANTMENT_FOR_SLOTS[e.slotName]
+            if rec then
+                counts[rec] = (counts[rec] or 0) + 1
+            end
+        end
+    end
+
+    for name, c in pairs(counts) do
+        table.insert(list, { name = name, count = c })
+    end
+    table.sort(list, function(a, b) return (a.name or "") < (b.name or "") end)
+    return list
 end
 
 -- 将模块导出到你的命名空间

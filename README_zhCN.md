@@ -16,7 +16,6 @@
 - `/lessclick` 或 `/lc`
     - `on`：启用
     - `off`：禁用
-    - `debug`：切换调试日志
 
 ## 设置
 - 正服（Retail）：游戏菜单 → 选项 → 插件 → Less Click

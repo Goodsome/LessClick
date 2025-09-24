@@ -173,6 +173,18 @@ end
 
 AuctionModule.RefreshList = RefreshListUI
 
+-- 从装备检查生成购物清单并刷新右侧列表
+function AuctionModule.UpdateShoppingListFromEquipCheck()
+    local equip = LC and LC.EquipCheck
+    if not equip then return end
+
+    local list = {}
+    if equip.BuildEnchantShoppingList then
+        list = equip.BuildEnchantShoppingList("player")
+    end
+
+    AuctionModule.SetShoppingList(list or {})
+end
 
 local function CreateRightPanel(parent)
     -- parent 为 AuctionHouseFrame；面板父级改为 UIParent，避免被拍卖行内部区域裁剪
@@ -239,6 +251,9 @@ f:SetScript("OnEvent", function(_, event)
     if event == "AUCTION_HOUSE_SHOW" then
         if LC and LC.db and LC.db.enabled then
             ShowPanel()
+            if AuctionModule and AuctionModule.UpdateShoppingListFromEquipCheck then
+                AuctionModule.UpdateShoppingListFromEquipCheck()
+            end
         end
     elseif event == "AUCTION_HOUSE_CLOSED" then
         HidePanel()

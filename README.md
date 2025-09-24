@@ -16,7 +16,6 @@ Reduce clicks. Speed up routine actions with smart, lightweight QoL helpers.
 - `/lessclick` or `/lc`
   - `on` – enable the addon
   - `off` – disable the addon
-  - `debug` – toggle debug logging
 
 ## Options
 - Retail: Game Menu → Options → AddOns → Less Click
